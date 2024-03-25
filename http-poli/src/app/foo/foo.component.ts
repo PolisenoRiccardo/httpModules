@@ -10,8 +10,10 @@ import { Observable } from 'rxjs';
 export class FooComponent {
    data: Object;
    loading: boolean;
-   o :Observable<Object>;
+   o : Observable<Object>;
+
    constructor(public http: HttpClient) {}
+
    makeRequest(): void {
      console.log("here");
      this.loading = true;
@@ -23,16 +25,37 @@ export class FooComponent {
      this.data = new Object(d);
      this.loading = false;
    }
+
    //Nota bene, questo è un metodo alternativo e compatto per fare la stessa cosa di 
    //makeRequest senza dichiarare la variabile Observable e creando l’arrow function   
    //direttamente dentro il metodo subscribe
+  
    makeCompactRequest(): void {
      this.loading = true;
      this.http
-       .get('https://jsonplaceholder.typicode.com/posts/1')
-       .subscribe(newData => {
-       this.data = newData;
-       this.loading = false;
+        .get('https://jsonplaceholder.typicode.com/posts/1')
+        .subscribe(newData => {
+        this.data = newData;
+        this.loading = false;
        });
       }
+
+  //L'operazione di post necessita un parametro in più.
+  //Viene creata una stringa (JSON.strigify) a partire da un oggetto Typescript
+ makeCompactPost(): void {
+  this.loading = true;
+  this.http
+    .post('https://jsonplaceholder.typicode.com/posts',
+      JSON.stringify({
+        body: 'bar',
+        title: 'foo',
+        userId: 1
+      })
+    )
+    .subscribe(data => {
+      this.data = data;
+      this.loading = false;
+    });
+}
+
 }
