@@ -1,11 +1,22 @@
 <button type="button" (click)="makeTypedRequest()">Make typed request</button>
 
 <!--Uso un ciclo for per scandire tutta la lista di articoli-->
-<div *ngFor="let art of fooData">
-   <h3>{{art.title}}</h3>
-   <b>post {{art.id}} di utente #: {{art.userId}}</b>
-   <div>
-       {{art.body}}
-   </div>
-   <hr>
+<div class="d-flex flex-wrap"></div>
+<div *ngFor="let art of fooData" class=" d-inline-block  w-25">
+    <div class="card m-3">
+        <div class="card-title m-1">
+            <h3>
+                {{art.title}}
+            </h3> 
+        </div>
+        <hr>
+        <div class="card-body">  
+            <b>
+                post {{art.id}} di utente #: {{art.userId}}
+            </b>
+            <div>
+                {{art.body}}
+            </div>
+        </div>
+    </div>
 </div>
